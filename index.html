@@ -849,10 +849,7 @@ for(let i=0;i<50;i++){
 let db;
 
 const request =
-indexedDB.open(
-    "AnimeProfileDB",
-    1
-);
+indexedDB.open("AnimeProfileDB",1);
 
 request.onupgradeneeded = function(event){
     db = event.target.result;
