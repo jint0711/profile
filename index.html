@@ -854,6 +854,14 @@ indexedDB.open(
     1
 );
 
+request.onupgradeneeded = function(event){
+    db = event.target.result;
+
+    if(!db.objectStoreNames.contains("posts")){
+        db.createObjectStore("posts", { keyPath: "id" });
+    }
+};
+
 request.onsuccess =
 function(event){
 
