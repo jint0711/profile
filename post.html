@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Bài viết</title>
+
+<style>
+
+body{
+    min-height:100vh;
+    background:linear-gradient(
+        135deg,
+        #ff9a9e,
+        #fad0c4,
+        #a18cd1
+    );
+
+    font-family:Poppins,sans-serif;
+
+    color:white;
+
+    overflow-x:hidden;
+
+    margin:0;
+    padding:30px;
+}
+
+.background{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    z-index:-1;
+
+    overflow:hidden;
+}
+
+.sakura{
+
+    position:absolute;
+
+    user-select:none;
+
+    pointer-events:none;
+
+    opacity:.9;
+
+    text-shadow:
+        0 0 8px rgba(255,192,203,.8),
+        0 0 16px rgba(255,182,193,.6);
+
+    animation:sakuraFall linear infinite;
+}
+
+@keyframes sakuraFall{
+
+    0%{
+        transform:
+        translateY(-100px)
+        translateX(0)
+        rotate(0deg);
+    }
+
+    100%{
+        transform:
+        translateY(120vh)
+        translateX(50px)
+        rotate(360deg);
+    }
+
+}
+
+.article{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    backdrop-filter:blur(20px);
+
+    background:
+    rgba(255,255,255,.12);
+
+    border:
+    1px solid
+    rgba(255,255,255,.2);
+
+    box-shadow:
+    0 8px 32px
+    rgba(0,0,0,.2);
+}
+
+.article h1{
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+    font-size:2.5rem;
+
+    text-shadow:
+        0 0 10px white,
+        0 0 20px #ff66c4;
+}
+
+.article-image{
+
+    width:100%;
+
+    max-height:500px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    margin:20px 0;
+}
+
+.article-content{
+
+    line-height:1.9;
+
+    white-space:pre-wrap;
+}
+
+.back{
+
+    display:inline-block;
+
+    margin-bottom:20px;
+
+    color:white;
+
+    text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<script>
+
+const bg =
+document.getElementById("bg");
+
+for(let i=0;i<80;i++){
+
+    const flower =
+    document.createElement("div");
+
+    flower.classList.add("sakura");
+
+    flower.innerHTML="🌸";
+
+    flower.style.left =
+    Math.random()*100 + "%";
+
+    flower.style.fontSize =
+    (Math.random()*35 + 45) + "px";
+
+    flower.style.animationDuration =
+    (Math.random()*8 + 10) + "s";
+
+    flower.style.animationDelay =
+    Math.random()*10 + "s";
+
+    bg.appendChild(flower);
+}
+
+</script>
+
+<body>
+
+<a href="index.html" class="back">
+← Quay lại trang chủ
+</a>
+
+<div class="article">
+
+    <div id="post">
+
+    </div>
+
+</div>
+
+<script>
+
+const postId =
+Number(
+    localStorage.getItem(
+        "currentPostId"
+    )
+);
+
+const request =
+indexedDB.open(
+    "AnimeProfileDB",
+    1
+);
+
+request.onsuccess =
+function(event){
+
+    const db =
+    event.target.result;
+
+    const transaction =
+    db.transaction(
+        ["posts"],
+        "readonly"
+    );
+
+    const store =
+    transaction.objectStore(
+        "posts"
+    );
+
+    const getRequest =
+    store.get(postId);
+
+    getRequest.onsuccess =
+    function(){
+
+        const post =
+        getRequest.result;
+
+        if(!post){
+
+            document
+            .getElementById("post")
+            .innerHTML =
+            "<h2>Không tìm thấy bài viết</h2>";
+
+            return;
+        }
+
+        document
+        .getElementById("post")
+        .innerHTML = `
+
+        <h1>${post.title}</h1>
+
+        <div>
+            ${post.date}
+        </div>
+
+        <img
+        src="${post.image}"
+        class="article-image">
+
+        <div
+        class="article-content">
+
+            ${post.content}
+
+        </div>
+
+        `;
+    };
+};
+
+if(post){
+
+    document.getElementById(
+        "post"
+    ).innerHTML = `
+
+    <h1>${post.title}</h1>
+
+    <div>
+        ${post.date}
+    </div>
+
+    <img
+    src="${post.image}"
+    class="article-image">
+
+    <div class="article-content">
+
+        ${post.content}
+
+    </div>
+
+    `;
+
+}
+
+</script>
+
+</body>
+<div class="background" id="bg"></div>
+</html>

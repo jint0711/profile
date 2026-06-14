@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Đăng bài viết</title>
+
+<style>
+
+body{
+    background:#1a1a2e;
+    color:white;
+    font-family:Poppins,sans-serif;
+    max-width:900px;
+    margin:auto;
+    padding:30px;
+}
+
+input, textarea{
+
+    width:100%;
+    padding:15px;
+    margin:10px 0;
+
+    border:none;
+    border-radius:15px;
+
+    background:#2d3250;
+    color:white;
+}
+
+textarea{
+    min-height:300px;
+    resize:vertical;
+}
+
+button{
+
+    padding:15px 25px;
+
+    border:none;
+    border-radius:15px;
+
+    background:#ff66c4;
+    color:white;
+
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>📝 Đăng bài viết mới</h1>
+
+<input
+id="title"
+placeholder="Tiêu đề bài viết">
+
+<input
+type="file"
+id="image"
+accept="image/*">
+
+<textarea
+id="content"
+placeholder="Nội dung bài viết">
+</textarea>
+
+<button onclick="addPost()">
+Đăng bài
+</button>
+
+<button onclick="logout()">
+Đăng xuất
+</button>
+
+<script>
+
+if(
+    localStorage.getItem("isAdmin")
+    !== "true"
+){
+
+    location.href="login.html";
+
+}
+
+let db;
+
+const request = indexedDB.open("AnimeProfileDB", 1);
+
+request.onupgradeneeded = function(event){
+
+    db = event.target.result;
+
+    if(!db.objectStoreNames.contains("posts")){
+
+        db.createObjectStore(
+            "posts",
+            {
+                keyPath:"id"
+            }
+        );
+
+    }
+};
+
+request.onsuccess = function(event){
+
+    db = event.target.result;
+
+};
+
+request.onerror = function(){
+
+    alert("Không thể mở Database");
+
+};
+
+function addPost(){
+
+    const title =
+    document.getElementById("title").value;
+
+    const content =
+    document.getElementById("content").value;
+
+    const imageFile =
+    document.getElementById("image").files[0];
+
+    if(!title){
+        alert("Nhập tiêu đề!");
+        return;
+    }
+
+    if(!imageFile){
+        alert("Chọn ảnh!");
+        return;
+    }
+
+    const reader =
+    new FileReader();
+
+    reader.onload = function(e){
+
+        const transaction =
+        db.transaction(
+            ["posts"],
+            "readwrite"
+        );
+
+        const store =
+        transaction.objectStore(
+            "posts"
+        );
+
+        store.add({
+
+            id: Date.now(),
+
+            title,
+
+            content,
+
+            image: e.target.result,
+
+            date: new Date()
+            .toLocaleDateString("vi-VN")
+
+        });
+
+        transaction.oncomplete =
+        function(){
+
+            alert(
+                "Đăng bài thành công!"
+            );
+
+            location.href =
+            "../index.html";
+        };
+    };
+
+    reader.readAsDataURL(
+        imageFile
+    );
+}
+
+function logout(){
+
+    localStorage.removeItem(
+        "isAdmin"
+    );
+
+    location.href =
+    "login.html";
+
+}
+
+</script>
+
+</body>
+</html>

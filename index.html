@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Anime Profile</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4,#a18cd1);
+    overflow-x:hidden;
+    transition:.4s;
+}
+
+/* NỀN ĐỘNG */
+
+.background{
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    overflow:hidden;
+}
+
+.sakura{
+    position:absolute;
+    font-size:24px;
+    user-select:none;
+    pointer-events:none;
+    animation:sakuraFall linear infinite;
+    opacity:.8;
+}
+
+@keyframes sakuraFall{
+
+    0%{
+        transform:
+        translateY(-100px)
+        translateX(0)
+        rotate(0deg);
+    }
+
+    25%{
+        transform:
+        translateY(25vh)
+        translateX(30px)
+        rotate(90deg);
+    }
+
+    50%{
+        transform:
+        translateY(50vh)
+        translateX(-20px)
+        rotate(180deg);
+    }
+
+    75%{
+        transform:
+        translateY(75vh)
+        translateX(40px)
+        rotate(270deg);
+    }
+
+    100%{
+        transform:
+        translateY(120vh)
+        translateX(-30px)
+        rotate(360deg);
+    }
+
+}
+
+/* DARK MODE */
+
+.dark{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+.dark .card{
+    background:rgba(0,0,0,.25);
+}
+
+.dark .project{
+    background:rgba(255,255,255,.05);
+}
+
+/* BUTTON */
+
+.toggle{
+    position:fixed;
+    top:20px;
+    right:20px;
+    border:none;
+    cursor:pointer;
+    border-radius:50px;
+    padding:12px 20px;
+    font-size:15px;
+    backdrop-filter:blur(10px);
+    background:rgba(255,255,255,.2);
+    color:white;
+    z-index:999;
+}
+
+/* CONTAINER */
+
+.container{
+    max-width:950px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.welcome-banner{
+
+    max-width:900px;
+
+    margin:0 auto 30px;
+
+    padding:20px 30px;
+
+    text-align:center;
+
+    font-size:2.2rem;
+
+    font-weight:700;
+
+    color:white;
+
+    background:
+    rgba(255,255,255,.12);
+
+    backdrop-filter:
+    blur(20px);
+
+    border:
+    1px solid
+    rgba(255,255,255,.25);
+
+    border-radius:25px;
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.2),
+        0 0 40px rgba(255,102,196,.3);
+
+    text-shadow:
+        0 0 8px white,
+        0 0 15px #ff66c4,
+        0 0 30px #7873f5;
+
+    animation:
+    glowBanner 2s ease-in-out infinite alternate;
+}
+
+@keyframes glowBanner{
+
+    from{
+
+        transform:
+        translateY(0);
+
+        box-shadow:
+            0 0 20px rgba(255,255,255,.2),
+            0 0 40px rgba(255,102,196,.3);
+    }
+
+    to{
+
+        transform:
+        translateY(-3px);
+
+        box-shadow:
+            0 0 30px rgba(255,255,255,.3),
+            0 0 60px rgba(255,102,196,.6),
+            0 0 100px rgba(120,115,245,.5);
+    }
+}
+
+@keyframes glowText{
+
+    from{
+
+        text-shadow:
+            0 0 10px white,
+            0 0 20px #ff66c4,
+            0 0 40px #7873f5;
+    }
+
+    to{
+
+        text-shadow:
+            0 0 20px white,
+            0 0 40px #ff66c4,
+            0 0 70px #7873f5;
+    }
+}
+
+/* CARD */
+
+.card{
+    backdrop-filter:blur(25px);
+    background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:30px;
+    padding:40px;
+    box-shadow:0 8px 32px rgba(0,0,0,.2);
+    animation:fadeUp 1s ease;
+
+    transform:none;
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.profile{
+    text-align:center;
+}
+
+.avatar-frame{
+
+    position:relative;
+
+    width:190px;
+    height:190px;
+
+    margin:0 auto;
+}
+
+.avatar-frame::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-8px;
+
+    border-radius:50%;
+
+    background:
+    conic-gradient(
+        transparent,
+        #ff66c4,
+        transparent,
+        #7873f5,
+        transparent,
+        #00e5ff,
+        transparent
+    );
+
+    animation:
+    rotateRing 4s linear infinite;
+
+    filter:
+    blur(3px);
+
+    z-index:0;
+}
+
+.avatar-frame::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:4px;
+
+    border-radius:50%;
+
+    background:
+    rgba(255,255,255,.08);
+
+    backdrop-filter:
+    blur(10px);
+
+    z-index:1;
+}
+
+.avatar{
+    position:relative;
+
+    z-index:2;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    border:4px solid
+    rgba(255,255,255,.8);
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.7),
+        0 0 40px #ff66c4,
+        0 0 70px #7873f5;
+
+    transition:.4s;
+}
+
+.avatar:hover{
+    transform:
+    scale(1.05);
+
+    box-shadow:
+        0 0 25px white,
+        0 0 60px #ff66c4,
+        0 0 100px #7873f5;
+}
+
+@keyframes rotateRing{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.name{
+    margin-top:20px;
+    color:white;
+    font-size:2.2rem;
+}
+
+.bio{
+    color:white;
+    opacity:.9;
+    margin-top:10px;
+}
+
+.intro{
+    max-width:600px;
+    margin:20px auto 0;
+    padding:15px 20px;
+
+    color:white;
+    font-size:15px;
+    line-height:1.8;
+
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(10px);
+
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:15px;
+
+    text-align:center;
+
+    animation:fadeUp 1.2s ease;
+}
+
+/* SOCIAL */
+
+.social-links{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:25px;
+}
+
+.social-btn{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    color:white;
+    font-size:22px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(15px);
+    transition:.35s;
+}
+
+.social-btn:hover{
+    transform:translateY(-8px);
+    box-shadow:
+        0 0 10px #fff,
+        0 0 20px #ff66c4,
+        0 0 40px #ff66c4;
+}
+
+.section{
+    margin-top:40px;
+}
+
+.section h2{
+    color:white;
+    margin-bottom:20px;
+}
+
+/* SKILL BAR */
+
+.skill{
+    margin-bottom:18px;
+}
+
+.skill-name{
+    color:white;
+    margin-bottom:6px;
+}
+
+.bar{
+    height:12px;
+    background:rgba(255,255,255,.15);
+    border-radius:20px;
+}
+
+.progress{
+    height:100%;
+    width:0;
+    border-radius:20px;
+    background:linear-gradient(90deg,#ff66c4,#7873f5);
+    transition:2s;
+}
+
+/* PROJECT */
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.project{
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,.1);
+    color:white;
+    transition:.3s;
+}
+
+.project:hover{
+    transform:translateY(-10px);
+}
+
+.project h3{
+    margin-bottom:10px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:35px;
+    color:white;
+    opacity:.8;
+}
+
+@media(max-width:768px){
+
+    .card{
+        padding:25px;
+    }
+
+    .avatar{
+        width:140px;
+        height:140px;
+    }
+
+    .name{
+        font-size:1.8rem;
+    }
+}
+
+.blog-post{
+
+    background:
+    rgba(255,255,255,.12);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    margin-bottom:25px;
+
+    backdrop-filter:blur(15px);
+
+    color:white;
+
+    padding:20px;
+}
+
+.blog-thumbnail{
+
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    margin-bottom:15px;
+}
+
+.blog-date{
+
+    opacity:.7;
+
+    margin-bottom:10px;
+}
+
+.create-post-container{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:30px 0;
+}
+
+.create-post-btn{
+
+    text-decoration:none;
+
+    color:white;
+
+    font-weight:600;
+
+    padding:15px 25px;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #ff66c4,
+        #7873f5
+    );
+
+    box-shadow:
+    0 0 15px
+    rgba(255,102,196,.4);
+
+    transition:.3s;
+}
+
+.create-post-btn:hover{
+
+    transform:
+    translateY(-5px)
+    scale(1.05);
+
+    box-shadow:
+    0 0 25px
+    rgba(255,102,196,.8);
+}
+
+.post-preview{
+    color:white;
+    opacity:.85;
+    line-height:1.6;
+    margin-top:10px;
+}
+
+.blog-post{
+    cursor:pointer;
+}
+
+.blog-post h3{
+    margin:10px 0;
+}
+
+.pagination{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-top:30px;
+}
+
+.page-btn{
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+    rgba(255,255,255,.15);
+
+    backdrop-filter:blur(10px);
+
+    transition:.3s;
+}
+
+.page-btn:hover{
+
+    transform:translateY(-3px);
+}
+
+.page-btn.active{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ff66c4,
+        #7873f5
+    );
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="background" id="bg"></div>
+
+<button class="toggle" onclick="toggleMode()">
+🌙 Dark Mode
+</button>
+
+<div class="container">
+
+<div class="welcome-banner">
+    CHÀO MỪNG BẠN ĐẾN VỚI WEBSITE CỦA MÌNH
+</div>
+
+<div class="card" id="card">
+
+<div class="profile">
+
+<div class="avatar-frame">
+
+    <img
+    class="avatar"
+    src="images/avatar.jpg">
+
+</div>
+
+<h1 class="name">Phan Anh Thư</h1>
+
+<p class="bio">
+Developer • Editor
+</p>
+
+<p class="intro">
+Xin chào, mình là một developer yêu thích công nghệ và luôn muốn học hỏi thêm nhiều điều mới. Trang web này được tạo ra như một nơi để mình chia sẻ các dự án cá nhân, kiến thức lập trình và những trải nghiệm trong quá trình phát triển bản thân.
+</p>
+
+<div class="social-links">
+
+<a href="https://www.facebook.com/phanthu7711" class="social-btn" target="_blank">
+<i class="fab fa-facebook-f"></i>
+</a>
+
+<a href="https://www.instagram.com/jint07112003/" class="social-btn" target="_blank">
+<i class="fab fa-instagram"></i>
+</a>
+
+<a href="https://www.tiktok.com/@jint_2026" class="social-btn" target="_blank">
+<i class="fab fa-tiktok"></i>
+</a>
+
+<a href="https://github.com/jint0711" class="social-btn" target="_blank">
+<i class="fab fa-github"></i>
+</a>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>✨ Kỹ năng</h2>
+
+<div class="skill">
+<div class="skill-name">HTML</div>
+<div class="bar">
+<div class="progress" data-width="95%"></div>
+</div>
+</div>
+
+<div class="skill">
+<div class="skill-name">CSS</div>
+<div class="bar">
+<div class="progress" data-width="90%"></div>
+</div>
+</div>
+
+<div class="skill">
+<div class="skill-name">JavaScript</div>
+<div class="bar">
+<div class="progress" data-width="70%"></div>
+</div>
+</div>
+
+<div class="skill">
+<div class="skill-name">Java</div>
+<div class="bar">
+<div class="progress" data-width="60%"></div>
+</div>
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>🎯 Mục tiêu</h2>
+
+<div class="projects">
+
+<div class="project">
+<h3>Không ngừng học hỏi</h3>
+<p>
+Luôn tìm hiểu những công nghệ mới, rèn luyện tư duy lập trình
+và nâng cao kỹ năng giải quyết vấn đề thông qua các dự án thực tế.
+</p>
+</div>
+
+<div class="project">
+<h3>Xây dựng sản phẩm hữu ích</h3>
+<p>
+Tạo ra những website và công cụ có giá trị, phục vụ nhu cầu học tập,
+quản lý và chia sẻ kiến thức với cộng đồng.
+</p>
+</div>
+
+<div class="project">
+<h3>Phát triển bản thân</h3>
+<p>
+Từng bước hoàn thiện kỹ năng chuyên môn, kỹ năng làm việc nhóm
+và kinh nghiệm thực tiễn để trở thành một lập trình viên chuyên nghiệp.
+</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+    <h2>📝 Bài viết</h2>
+
+    <div id="postsContainer">
+    </div>
+    <div id="pagination" class="pagination"></div>
+</div>
+
+<div class="create-post-container">
+
+    <a href="admin/login.html"
+       class="create-post-btn">
+
+        ✍️ Tạo bài viết
+
+    </a>
+
+</div>
+
+<div class="footer">
+Được thực hiện bởi Anh Thư
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let currentPage = 1;
+const postsPerPage = 2;
+
+/* Skill Animation */
+
+window.onload=()=>{
+    document.querySelectorAll(".progress")
+    .forEach(bar=>{
+        bar.style.width=bar.dataset.width;
+    });
+};
+
+/* Dark Mode */
+
+let dark=false;
+
+function toggleMode(){
+
+    dark=!dark;
+
+    document.body.classList.toggle("dark");
+
+    document.querySelector(".toggle").innerHTML=
+    dark ? "☀️ Light Mode" : "🌙 Dark Mode";
+}
+
+/* NỀN ĐỘNG */
+
+const bg = document.getElementById("bg");
+
+for(let i=0;i<50;i++){
+
+    const flower = document.createElement("div");
+
+    flower.classList.add("sakura");
+
+    flower.innerHTML = "🌸";
+
+    flower.style.left = Math.random()*100 + "%";
+
+    flower.style.fontSize =
+    (Math.random()*40 + 40) + "px";
+
+    flower.style.animationDuration =
+    (Math.random()*10 + 8) + "s";
+
+    flower.style.animationDelay =
+    Math.random()*8 + "s";
+
+    bg.appendChild(flower);
+}
+
+
+let db;
+
+const request =
+indexedDB.open(
+    "AnimeProfileDB",
+    1
+);
+
+request.onsuccess =
+function(event){
+
+    db =
+    event.target.result;
+
+    loadPosts();
+
+};
+
+function loadPosts(){
+
+    const container =
+    document.getElementById(
+        "postsContainer"
+    );
+
+    const transaction =
+    db.transaction(
+        ["posts"],
+        "readonly"
+    );
+
+    const store =
+    transaction.objectStore(
+        "posts"
+    );
+
+    const request =
+    store.getAll();
+
+    request.onsuccess = function(){
+
+        const posts =
+        request.result.sort(
+            (a,b)=>b.id-a.id
+        );
+
+        const start =
+        (currentPage - 1) *
+        postsPerPage;
+
+        const end =
+        start + postsPerPage;
+
+        const pagePosts =
+        posts.slice(start,end);
+
+        container.innerHTML = "";
+
+        pagePosts.forEach(post=>{
+
+            container.innerHTML += `
+
+            <div class="blog-post"
+                onclick="openPost(${post.id})">
+
+                <img
+                src="${post.image}"
+                class="blog-thumbnail">
+
+                <div class="blog-date">
+                    ${post.date}
+                </div>
+
+                <h3>${post.title}</h3>
+
+                <p class="post-preview">
+                    ${
+                        post.content.length > 120
+                        ? post.content.substring(0,120) + "..."
+                        : post.content
+                    }
+                </p>
+
+            </div>
+
+            `;
+        });
+
+        renderPagination(
+            posts.length
+        );
+    };
+}
+
+function renderPagination(totalPosts){
+
+    const totalPages =
+    Math.ceil(
+        totalPosts/postsPerPage
+    );
+
+    const pagination =
+    document.getElementById(
+        "pagination"
+    );
+
+    pagination.innerHTML = "";
+
+    if(totalPages <= 1)
+        return;
+
+    for(
+        let i=1;
+        i<=totalPages;
+        i++
+    ){
+
+        pagination.innerHTML += `
+
+        <button
+        class="page-btn
+        ${i===currentPage?'active':''}"
+        onclick="changePage(${i})">
+
+            ${i}
+
+        </button>
+
+        `;
+    }
+}
+
+function changePage(page){
+
+    currentPage = page;
+
+    loadPosts();
+}
+function openPost(id){
+
+    localStorage.setItem(
+        "currentPostId",
+        id
+    );
+
+    location.href =
+    "post.html";
+}
+
+</script>
+
+</body>
+</html>
